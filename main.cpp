@@ -82,23 +82,6 @@ void dp(double weight){
                     }
                 }
             }
-            int i = frame_data[TEMP][w1]-1, j = frame_data[TEST][w2];
-            while(i != 0 && j != 0){
-                if(i == 0){
-                    ++tate;
-                    --i;
-                }else if(j == 0){
-                    ++yoko;
-                    --j;
-                }else{
-                    double TATE = g[i][j-1], YOKO = g[i-1][j], NANAME = g[i-1][j-1], min = TATE;
-                    if(min > YOKO) min = YOKO;
-                    if(min > NANAME) min = NANAME;
-                    if(min == TATE){++tate; --j;}
-                    else if(min == YOKO){++yoko; --i;}
-                    else {++naname; --i; --j;}
-                }
-            }
             T[w1][w2] = g[frame_data[TEMP][w1]-1][frame_data[TEST][w2]-1] / (frame_data[TEMP][w1]+frame_data[TEST][w2]);
         }
         correct += (*std::min_element(T[w1].begin(), T[w1].end()) == T[w1][w1]);
