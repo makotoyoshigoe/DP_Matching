@@ -1,4 +1,4 @@
-//SPDX-FIleCopyright: 2022 Makoto Yoshigoe
+//SPDX-FileCopyright: 2022 Makoto Yoshigoe
 //SPDX-License-Identifier: GPL-3.0
 
 #include<iostream>
