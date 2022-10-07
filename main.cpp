@@ -62,7 +62,7 @@ void read_file(int type, int speaker, int n){
 
 //DPマッチングを行う関数. 引数（weight: 斜め遷移の際の重み）
 void dp(double weight){
-    int correct = 0, tate = 0, naname = 0, yoko = 0;
+    int correct = 0;
     for(int w1=0; w1<word_sum; ++w1){
         for(int w2=0; w2<word_sum; ++w2){
             vector<vector<double>> d(frame_data[TEMP][w1], vector<double>(frame_data[TEST][w2])); //局所距離
@@ -73,18 +73,18 @@ void dp(double weight){
                         d[i][j] += (data[TEMP][w1][i][k]-data[TEST][w2][j][k])*(data[TEMP][w1][i][k]-data[TEST][w2][j][k]);
                     }
                     sqrt(d[i][j]);
-                    if(i ==0 && j == 0) g[0][0] = d[0][0];
-                    else if(i == 0) g[0][j] = g[0][j-1] + d[0][j];
-                    else if(j == 0) g[i][0] = g[i-1][0] + d[i][0];
-                    else{
+                    if(i !=0 && j != 0){
                         vector<double> p = {g[i][j-1] + d[i][j], g[i-1][j-1] + weight*d[i][j], g[i-1][j] + d[i][j]};
                         g[i][j] = *std::min_element(p.begin(), p.end());
                     }
+                    else if(i == 0) g[0][j] = g[0][j-1] + d[0][j];
+                    else if(j == 0) g[i][0] = g[i-1][0] + d[i][0];
+                    else g[0][0] = d[0][0];
                 }
             }
             T[w1][w2] = g[frame_data[TEMP][w1]-1][frame_data[TEST][w2]-1] / (frame_data[TEMP][w1]+frame_data[TEST][w2]);
         }
         correct += (*std::min_element(T[w1].begin(), T[w1].end()) == T[w1][w1]);
     }
-    std::cout << "weight =" << weight << "Recognition rate: " << correct << "%"<< std::endl;
+    std::cout << "weight =" << weight << ", Recognition rate: " << correct << "%"<< std::endl;
 }
