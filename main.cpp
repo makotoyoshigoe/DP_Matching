@@ -16,7 +16,6 @@ vector<vector<double>> T(word_sum, vector<double>(word_sum));
 int frame_data[2][word_sum];
 //[テンプレートor未知データ][単語番号][フレーム][次元]
 vector<vector<vector<vector<double>>>> data(2, vector<vector<vector<double>>>(word_sum, vector<vector<double>>(default_frame, vector<double>(dimension))));
-vector<vector<vector<vector<double>>>> G(word_sum, vector<vector<vector<double>>>(word_sum, vector<vector<double>>(default_frame, vector<double>(default_frame))));
 void read_file(int, int, int);
 void dp(double);
 /*
